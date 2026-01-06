@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Fuel, Gauge, Settings2 } from 'lucide-react';
+import { Fuel, Gauge, Settings2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface CarGridProps {
