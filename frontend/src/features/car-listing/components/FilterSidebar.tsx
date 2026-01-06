@@ -61,7 +61,7 @@ export const FilterSidebar = () => {
                 step={1} 
                 className="mb-6"
                 // Logic sync slider value to min/max price (simplified for demo)
-                onValueChange={(val) => {
+                onValueChange={(_val) => {
                     // console.log(val)
                 }}
              />

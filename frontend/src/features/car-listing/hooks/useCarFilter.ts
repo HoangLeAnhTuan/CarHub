@@ -45,11 +45,11 @@ export const useCarFilter = () => {
 
 
   // Helper to update specific filter
-  const setFilter = useCallback((key: keyof CarFilters | 'minPrice' | 'maxPrice', value: any) => {
+  const setFilter = useCallback((key: keyof CarFilters | 'minPrice' | 'maxPrice', value: string | number | string[] | [number, number] | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (key === 'brand' || key === 'fuelType') {
-        if (value && value.length > 0) {
+        if (Array.isArray(value) && value.length > 0) {
             params.set(key, (value as string[]).join(','));
         } else {
             params.delete(key);
@@ -60,7 +60,7 @@ export const useCarFilter = () => {
        params.set('sort', String(value));
     } else {
         // Handle single values (minPrice, maxPrice passed directly)
-        if (value || value === 0) {
+        if (value !== null && value !== undefined) {
            params.set(key as string, String(value));
         } else {
            params.delete(key as string);
