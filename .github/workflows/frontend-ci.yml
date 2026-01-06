@@ -1,0 +1,46 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+    paths:
+      - 'frontend/**'
+  pull_request:
+    branches: [ "main", "dev" ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+        cache-dependency-path: frontend/yarn.lock
+
+    - name: Install Dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Lint Check
+      run: yarn lint
+
+    # - name: Type Check (Uncomment when TS is ready)
+    #   run: yarn type-check
+
+    - name: Build Check
+      run: yarn build
